@@ -6,15 +6,18 @@
     <title>Connect the Dots</title>
     <style>
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('Hintergrund.png');
-            scroll-behavior: smooth;
-            width: 100vw;
-            overflow-x: hidden;
-            height: calc(320% + 100vh);
-            
-        }
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('Hintergrund.png');
+    background-size: cover; /* Ensures the image covers the whole screen and keeps it fixed while scrolling */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    scroll-behavior: smooth;
+    width: 100vw;
+    overflow-x: hidden;
+    height: calc(320% + 100vh);
+}
         section {
             height: 100vh;
             display: flex;
@@ -25,7 +28,7 @@
         html {
             scroll-snap-type: y mandatory;
         }
-        .dot {
+        .dot { /* Defining the dots */
             position: absolute;
             width: 40px;
             height: 40px;
@@ -45,7 +48,7 @@
             box-shadow: 0 0 0 7px rgba(255, 170, 134, 0.7);
         }
         .dot-1 {
-            top: 45%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgb(255, 81, 162);
@@ -53,32 +56,32 @@
             height: 30px;
         }
         .dot-2 {
-            top: 75%;
+            top: 90%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
         .dot-3 {
-            top: 125%;
+            top: 140%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
         .dot-4 {
-            top: 175%;
+            top: 190%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
         .dot-5 {
-            top: 225%;
+            top: 240%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
         .dot-6 {
-            top: 275%;
+            top: 290%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
         .dot-7 {
-            top: 325%;
+            top: 340%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -88,12 +91,13 @@
             left: 0;
             pointer-events: none;
         }
-        .headline {
+        .headline { 
             position: absolute;
             top: 60px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: black;
         }
         .headline h1 {
@@ -103,7 +107,7 @@
         .headline h2 {
             font-size: 1.8rem;
             margin: 5px 0 0;
-            color: rgb(218, 68, 105);
+            color: rgb(218, 68, 131);
         }
 
         @keyframes fadeIn {
@@ -117,21 +121,22 @@
             }
         }
 
-        .text-block {
+        .text-block { /* Defining the text that holds information */
             position: absolute;
-            color: black;
+            color: rgb(149, 0, 77);
             font-size: 40px;
             font-weight: bold;
             text-align: left;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: none;
             width: 600px;
-            opacity: 0; /* Initial opacity */
-            transition: opacity 0.3s ease-in-out; /* Smooth opacity transition */
+            opacity: 0; 
+            transition: opacity 0.3s ease-in-out; 
         }
 
         .text-block.fade-in {
             display: block;
-            animation: fadeIn 0.5s ease-in-out forwards; /* Apply fade-in animation */
+            animation: fadeIn 0.5s ease-in-out forwards; /* Applies a fade-in animation */
         }
 
         .text-block p {
@@ -139,15 +144,35 @@
         }
 
         .text-block p.small {
-            font-size: 25px; /* Smaller text */
-            color: rgb(218, 68, 105);
+            font-size: 25px; 
+            color: rgb(82, 4, 40);
         }
+        .footer { 
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: rgb(82, 4, 50);
+    background: rgba(255, 255, 255, 0.8);
+    opacity: 0.6;
+    width: 100%;
+    position: relative; 
+    margin-top: 2700px; 
+}
+body, html { /* Disables selection while dragging */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
     </style>
 </head>
 <body>
+    
     <div class="headline">
         <h1>How the web connects the art community</h1>
-        <h2>Reveal information by connecting the dots</h2>
+        <h2>Hold & drag a dot to connect it to the one below.</h2>
     </div>
 
     <canvas id="lineCanvas"></canvas>
@@ -177,32 +202,64 @@
         const lines = []; // Store all drawn lines
 
         const textBlocks = [
-    { mainText: "Access for All", smallText: "One of the web's most significant contributions to the art world is its ability to make art accessible to everyone. Online galleries, virtual museums, and platforms like Instagram have allowed individuals from all walks of life to discover and engage with art, regardless of their location or socioeconomic status." },
-    { mainText: "Art Education", smallText: "The internet has expanded access to art education through tutorials, masterclasses, and online courses. Websites like Skillshare, YouTube, and Coursera allow aspiring artists to learn from experts worldwide, often for free or at a fraction of the cost of traditional education." },
-    { mainText: "Art Consumption", smallText: "The web has transformed how people consume art. Virtual tours of museums and interactive online exhibits allow art lovers to experience masterpieces without stepping foot in a gallery. Additionally, the rise of digital art, NFTs, and online auctions has created new ways to collect and appreciate art." },
-    { mainText: "Collaboration", smallText: "Artists now collaborate with peers across the globe, leveraging tools like forums, online communities, and video conferencing to share ideas and co-create projects. This global connectivity fosters cultural exchange and pushes the boundaries of creativity." },
-    { mainText: "Challenges", smallText: "While the web has brought many benefits, it has also introduced challenges for the art community. Issues like copyright infringement, oversaturation of content, and difficulties in authenticating digital works can complicate an artist’s path to success. Furthermore, the rise of AI-generated art has sparked debates about originality and the role of technology in creative expression." },
-    { mainText: "Online Communities", smallText: "Communities on platforms like Reddit, Discord, and specialized art forums play a crucial role in nurturing talent. These spaces provide feedback, mentorship, and opportunities for collaboration, creating ecosystems where both emerging and established artists thrive." }
+    { 
+        mainText: "Access for All", 
+        smallText: "One of the web's most significant contributions to the art world is its ability to make art accessible to everyone. Online galleries, virtual museums, and platforms like Instagram have allowed individuals from anywhere in the world to discover and engage with art.",
+        imageUrl: "access.png",
+        imageAlt: "Screenshot of suggested Instagram posts after searching for art", 
+
+    },
+    { 
+        mainText: "Art Education", 
+        smallText: "The internet has expanded access to art education through tutorials, masterclasses, and online courses. Websites like Skillshare and YouTube allow aspiring artists to learn from experts worldwide, often for free or at a fraction of the cost of traditional education.",
+        imageUrl: "youtube1.png",
+        imageAlt: "Screenshot of a YouTube drawing tutorial for beginners", 
+        linkUrl: "https://www.youtube.com/watch?v=1jjmOF1hQqI" 
+    },
+    { 
+        mainText: "Fun Activities", 
+        smallText: "Being able to gather thousands of artists in one place provided an opportunity to create fun games or challenges within the community. With the help of social media, challenges such as Artfight gained popularity and bring artists together every year.",
+        imageUrl: "community1.png",
+        imageAlt: "The front page of the annual art game site called Artfight", 
+        linkUrl: "https://artfight.net/" 
+    },
+    { 
+        mainText: "Collaboration", 
+        smallText: "Artists now collaborate with peers across the globe, using tools like forums, online communities, and video conferencing to share ideas and co-create projects. This global connectivity allows more cultural exchange and pushes the boundaries of creativity." 
+    },
+    { 
+        mainText: "Challenges", 
+        smallText: "While the web has brought many benefits, it has also introduced challenges for the art community. Issues like copyright infringement, oversaturation of content, and art theft can complicate an artist’s path to success. Furthermore, the rise of AI-generated art has sparked debates about originality and the role of technology in creative expression.",
+        imageUrl: "ai1.png",
+        imageAlt: "Results from searching for AI generated art on Google",   
+    },
+    { 
+        mainText: "Online Communities", 
+        smallText: "Communities on platforms like Reddit, Discord, and specialized art forums play a crucial role in nurturing talent. These spaces provide feedback, mentorship, and opportunities for collaboration, creating places for both emerging and established artists to thrive.",
+        linkUrl: "https://disboard.org/search?keyword=art"
+
+    }
 ];
 
-        // Set up canvas size
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            canvas.style.top = `${window.scrollY}px`;
-            canvas.style.left = `${window.scrollX}px`;
-            redrawLines();
-        }
 
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+// Set up canvas size
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.top = `${window.scrollY}px`;
+    canvas.style.left = `${window.scrollX}px`;
+    redrawLines();
+}
 
-        // Adjust canvas position on scroll
-        window.addEventListener('scroll', () => {
-            canvas.style.top = `${window.scrollY}px`;
-            canvas.style.left = `${window.scrollX}px`;
-            redrawLines();
-        });
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Adjust canvas position on scroll
+window.addEventListener('scroll', () => {
+    canvas.style.top = `${window.scrollY}px`;
+    canvas.style.left = `${window.scrollX}px`;
+    redrawLines();
+});
 
         // Draw a line between two points
         function drawLine(startX, startY, endX, endY) {
@@ -214,14 +271,20 @@
             ctx.stroke();
         }
 
-        // Redraw all lines
-        function redrawLines() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            lines.forEach(line => {
-                const { startX, startY, endX, endY } = line;
-                drawLine(startX, startY, endX, endY);
-            });
+       // Redraw all lines dynamically based on current dot positions (fixes zooming issues)
+function redrawLines() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    lines.forEach(line => {
+        const startDot = line.startDot;
+        const endDot = line.endDot;
+
+        if (startDot && endDot) {
+            const startPos = getCenterPosition(startDot);
+            const endPos = getCenterPosition(endDot);
+            drawLine(startPos.x, startPos.y, endPos.x, endPos.y);
         }
+    });
+}
 
         // Get the center position of an element
         function getCenterPosition(element) {
@@ -232,7 +295,6 @@
             };
         }
 
-        // Show text block near a dot
         function showTextBlock(dot, textObject, position) {
     let textBlock = dot.querySelector('.text-block');
     if (!textBlock) {
@@ -240,23 +302,29 @@
         textBlock.className = 'text-block';
         dot.appendChild(textBlock);
     }
+
+    let imageTag = textObject.imageUrl 
+        ? `<img src="${textObject.imageUrl}" alt="${textObject.mainText}" style="width: 100%; margin-top: 10px; border-radius: 10px;">`
+        : "";
+
+    let linkTag = textObject.linkUrl 
+        ? `<p><a href="${textObject.linkUrl}" target="_blank" style="color: rgb(179, 0, 68); text-decoration: underline; font-size: 18px;">Show me!</a></p>` 
+        : "";
+
     textBlock.innerHTML = `
         <p>${textObject.mainText}</p>
         <p class="small">${textObject.smallText}</p>
+        ${imageTag}
+        ${linkTag}
     `;
+
     textBlock.style[position] = '60px';
     textBlock.style.transform = 'translateY(-50%)';
 
-    // Remove any existing animation class to reset it
     textBlock.classList.remove('fade-in');
-
-    // Trigger reflow to restart the animation
     void textBlock.offsetWidth;
-
-    // Add the fade-in class
     textBlock.classList.add('fade-in');
 }
-
         // Event handlers for dots
         dots.forEach(dot => {
             dot.addEventListener('mousedown', () => {
@@ -275,39 +343,42 @@
         });
 
         window.addEventListener('mouseup', (e) => {
-            if (isDrawing && activeDot) {
-                isDrawing = false;
-                const startPos = getCenterPosition(activeDot);
+    if (isDrawing && activeDot) {
+        isDrawing = false;
+        const startPos = getCenterPosition(activeDot);
 
-                for (let i = 0; i < dots.length; i++) {
-                    const dot = dots[i];
-                    if (dot !== activeDot) {
-                        const endPos = getCenterPosition(dot);
-                        const dx = endPos.x - e.pageX;
-                        const dy = endPos.y - e.pageY;
+        for (let i = 0; i < dots.length; i++) {
+            const dot = dots[i];
+            if (dot !== activeDot) {
+                const endPos = getCenterPosition(dot);
+                const dx = endPos.x - e.pageX;
+                const dy = endPos.y - e.pageY;
 
-                        if (Math.sqrt(dx * dx + dy * dy) < 20) {
-                            lines.push({
-                                startX: startPos.x,
-                                startY: startPos.y,
-                                endX: endPos.x,
-                                endY: endPos.y,
-                            });
-                            redrawLines();
+                if (Math.sqrt(dx * dx + dy * dy) < 20) {
+                    // Store dot elements instead of fixed positions
+                    lines.push({
+                        startDot: activeDot,
+                        endDot: dot
+                    });
+                    redrawLines();
 
-                            const textIndex = Math.min(dots.indexOf(activeDot), dots.indexOf(dot));
-                            const position = dots.indexOf(dot) % 2 === 0 ? 'left' : 'right';
-                            showTextBlock(dot, textBlocks[textIndex], position);
-                            return;
-                        }
-                    }
+                    const textIndex = Math.min(dots.indexOf(activeDot), dots.indexOf(dot));
+                    const position = dots.indexOf(dot) % 2 === 0 ? 'left' : 'right';
+                    showTextBlock(dot, textBlocks[textIndex], position);
+                    return;
                 }
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                redrawLines();
             }
-        });
+        }
+
+        redrawLines();
+    }
+});
+
     </script>
+    
+    <footer class="footer">
+        <p>This page was created by Nicole Beliawska during the winter term 2024/25 in the Interactive Information course of the Interface Design program at the University of Applied Sciences Potsdam.</p>
+    </footer>
     
 </body>
 </html>
